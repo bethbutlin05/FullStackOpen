@@ -1,0 +1,30 @@
+sequenceDiagram
+    participant User
+    participant Browser
+    participant Server
+
+    User->>Browser: Type a new note
+    User->>Browser: Click "Save"
+
+    Note over Browser: JavaScript intercepts the form submission
+
+    Browser->>Server: POST /new_note<br/>Form data: note=<user's text>
+    activate Server
+    Server-->>Browser: HTTP 302 Redirect to /notes
+    deactivate Server
+
+    Browser->>Server: GET /notes
+    activate Server
+    Server-->>Browser: HTML document
+    deactivate Server
+
+    Browser->>Server: GET /main.css
+    Server-->>Browser: CSS file
+
+    Browser->>Server: GET /main.js
+    Server-->>Browser: JavaScript file
+
+    Browser->>Server: GET /data.json
+    Server-->>Browser: Updated JSON containing all notes
+
+    Note over Browser: Browser renders the updated notes list, including the new note
