@@ -1,0 +1,20 @@
+sequenceDiagram
+    participant User
+    participant Browser
+    participant Server
+
+    User->>Browser: Type a new note
+    User->>Browser: Click "Save"
+
+    Note over Browser: JavaScript intercepts the form submission
+
+    Browser->>Browser: Create note object
+    Browser->>Browser: Add note to local notes array
+    Browser->>Browser: Re-render notes list
+
+    Browser->>Server: POST /new_note_spa\nContent-Type: application/json\n{"content":"New note","date":"..."}
+    activate Server
+    Server-->>Browser: HTTP 201 Created
+    deactivate Server
+
+    Note over Browser: No page reload occurs
