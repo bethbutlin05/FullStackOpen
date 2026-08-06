@@ -1,0 +1,30 @@
+sequenceDiagram
+    participant User
+    participant Browser
+    participant Server
+
+    User->>Browser: Navigate to /spa
+
+    Browser->>Server: GET /spa
+    activate Server
+    Server-->>Browser: HTML document
+    deactivate Server
+
+    Browser->>Server: GET /main.css
+    activate Server
+    Server-->>Browser: CSS file
+    deactivate Server
+
+    Browser->>Server: GET /spa.js
+    activate Server
+    Server-->>Browser: JavaScript file
+    deactivate Server
+
+    Note over Browser: Browser executes spa.js
+
+    Browser->>Server: GET /data.json
+    activate Server
+    Server-->>Browser: JSON containing notes
+    deactivate Server
+
+    Note over Browser: JavaScript renders the notes dynamically
